@@ -1,11 +1,11 @@
 import React from "react";
-import CourseTableComponent from "./CourseTableComponent";
-import CourseGridComponent from "./CourseGridComponent";
-class CourseListComponent
+import CourseTableComponent from "../components/CourseTableComponent";
+import CourseGridComponent from "../components/CourseGridComponent";
+class CourseListContainer
   extends React.Component
 {
   state = {
-    layout: 'table',
+    layout: this.props.match.params.layout,
     courses: [
       {_id: '123', title: 'cs4550', owner: 'me', modified: '1/1/2020'},
       {_id: '234', title: 'cs5610', owner: 'myself', modified: '1/2/2020'},
@@ -17,9 +17,10 @@ class CourseListComponent
   }
 
   setLayout = (layout) => {
-    this.setState({
-      layout: layout
-    })
+    // this.setState({
+    //   layout: layout
+    // })
+    this.props.history.push(`/${layout}/courses`)
   }
 
   deleteCourse = (courseToDelete) => {
@@ -51,6 +52,9 @@ class CourseListComponent
   }
 
   render() {
+
+    console.log(this.props)
+
     return(
       <div>
         <h2>Course List {this.state.courses.length}</h2>
@@ -94,4 +98,4 @@ class CourseListComponent
   }
 }
 
-export default CourseListComponent
+export default CourseListContainer

@@ -1,13 +1,29 @@
 import React from 'react'
-import CourseListComponent from "./CourseListComponent";
+import CourseListContainer from "../containers/CourseListContainer";
+import CourseEditor from "./CourseEditor";
+import {BrowserRouter, Route} from "react-router-dom";
 
 class WhiteBoard extends React.Component {
   render() {
     return(
-      <div>
-        <h1>WhiteBoard !!!!</h1>
-        <CourseListComponent/>
-      </div>
+      <BrowserRouter>
+        <div>
+          <h1>WhiteBoard !!!!</h1>
+
+          <Route
+            path='/courses'
+            component={CourseListContainer}/>
+
+          <Route
+            path='/:layout/courses'
+            component={CourseListContainer}/>
+
+          <Route
+            path='/editor'
+            component={CourseEditor}/>
+
+        </div>
+      </BrowserRouter>
     )
   }
 }

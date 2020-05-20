@@ -8,7 +8,7 @@ export default class CourseTableComponent
     return(
       <div>
         <h3>Course Table {this.props.courses.length}</h3>
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <th>Title</th>
