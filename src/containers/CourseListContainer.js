@@ -1,55 +1,59 @@
 import React from "react";
 import CourseTableComponent from "../components/CourseTableComponent";
 import CourseGridComponent from "../components/CourseGridComponent";
+import courseService from "../services/CourseService"
+
 class CourseListContainer
   extends React.Component
 {
   state = {
     layout: this.props.match.params.layout,
-    courses: [
-      {_id: '123', title: 'cs4550', owner: 'me', modified: '1/1/2020'},
-      {_id: '234', title: 'cs5610', owner: 'myself', modified: '1/2/2020'},
-      {_id: '345', title: 'cs5200', owner: 'I', modified: '1/3/2020'},
-      {_id: '456', title: 'cs1800', owner: 'you', modified: '1/4/2020'},
-      {_id: '567', title: 'cs3200', owner: 'them', modified: '1/5/2020'},
-    ],
+    courses: [],
     newCourseTitle: 'New Title ABC'
   }
 
+  componentDidMount() {
+    courseService.findAllCourses()
+      .then(actualArrayOfCourses =>
+        this.setState({
+          courses: actualArrayOfCourses
+        }))
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.match.params.layout !== this.props.match.params.layout) {
+      this.setState({
+        layout: this.props.match.params.layout
+      })
+    }
+  }
+
   setLayout = (layout) => {
-    // this.setState({
-    //   layout: layout
-    // })
     this.props.history.push(`/${layout}/courses`)
   }
 
-  deleteCourse = (courseToDelete) => {
-    this.setState(prevState => ({
+  deleteCourse = (courseToDelete) =>
+    courseService.deleteCourse(courseToDelete._id)
+      .then(status => this.setState(prevState => ({
         courses: prevState
           .courses.filter(course => course !== courseToDelete)
-      }))
-  }
+      })))
 
-  addCourse = (title) => {
-    // debugger
-    const newCourse = {
-      _id: (new Date()).getMilliseconds() + '',
+  addCourse = (title) =>
+    courseService.createCourse({
       title: title,
       owner: 'me',
       modified: (new Date()).toDateString()
-    }
-
-    console.log(newCourse)
-
-    this.setState((prevState) => {
-      return {
-        courses: [
-          ...prevState.courses,
-          newCourse
-        ]
-      }
     })
-  }
+      .then(theActualNewCourse =>
+        this.setState((prevState) => {
+        return {
+          courses: [
+            ...prevState.courses,
+            theActualNewCourse
+          ]
+        }
+      }))
 
   render() {
 
