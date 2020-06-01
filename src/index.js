@@ -3,10 +3,28 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {createStore} from "redux";
+import {Provider, connect} from "react-redux"
+import hello from './reducers/hello'
+import counterReducer from "./reducers/counterReducer";
+import HelloContainer from "./Hello";
+import CounterComponent from "./components/CounterComponent";
+import moduleReducer from './reducers/moduleReducer'
+import ModuleListComponent from "./components/ModuleListComponent";
+import ModuleListContainer from "./containers/ModuleListContainer";
+import {ewq, rew, tre} from "./containers/ModuleListContainer";
+
+// const store = createStore(counterReducer)
+const store = createStore(moduleReducer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ModuleListContainer/>
+      {/*<CounterComponent/>*/}
+      {/*<HelloContainer/>*/}
+      {/*<HelloWorld messageProperty={'Hello World????'}/>*/}
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
