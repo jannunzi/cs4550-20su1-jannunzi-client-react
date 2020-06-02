@@ -20,7 +20,8 @@ const store = createStore(moduleReducer)
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ModuleListContainer/>
+      <App/>
+      {/*<ModuleListContainer/>*/}
       {/*<CounterComponent/>*/}
       {/*<HelloContainer/>*/}
       {/*<HelloWorld messageProperty={'Hello World????'}/>*/}

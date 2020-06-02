@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import ModuleListComponent from "../components/ModuleListComponent";
+import ModuleService from "../services/ModuleService";
 
 const stateToPropertyMapper = (state) => {
   return {
@@ -10,23 +11,33 @@ const stateToPropertyMapper = (state) => {
 
 const dispatchToPropertyMapper = (dispatch) => {
   return {
-    updateModuleTitle: (newModuleTitle) => {
-      dispatch({
-        type: 'MODULE_TITLE_CHANGED',
-        newModuleTitle: newModuleTitle
-      })
-      },
+    findAllModules: () => {
+      ModuleService.findAllModules()
+        .then(actualModules => dispatch({
+          type: 'FIND_ALL_MODULES',
+          modules: actualModules
+        }))
+    },
+    updateModule: (moduleId, newModuleData) => {
+      ModuleService.updateModule(moduleId, newModuleData)
+        .then(status => dispatch({
+          type: 'UPDATE_MODULE',
+          updatedModule: newModuleData
+        }))
+    },
     createModule: (newModule) => {
-      dispatch({
-        type: "ADD_MODULE",
-        newModule: newModule
-      })
+      ModuleService.createModule(newModule)
+        .then(actualNewModule => dispatch({
+          type: "ADD_MODULE",
+          newModule: actualNewModule
+        }))
     },
     deleteModule: (moduleId) => {
-      dispatch({
-        type: "DELETE_MODULE",
-        moduleId: moduleId
-      })
+      ModuleService.deleteModule(moduleId)
+        .then(status => dispatch({
+          type: "DELETE_MODULE",
+          moduleId: moduleId
+        }))
     }
   }
 }

@@ -2,11 +2,13 @@ import React from "react";
 import ModuleList from "./ModuleList";
 import LessonTabs from "./LessonTabs";
 import {Link} from "react-router-dom";
+import ModuleListContainer from "../containers/ModuleListContainer";
 
 // stateless component
-const CourseEditor = () => {
+const CourseEditor = ({match}) => {
   return(
     <div>
+      {match.params.courseId}
       <Link to="/courses">
         Back
       </Link>
@@ -14,7 +16,7 @@ const CourseEditor = () => {
 
       <div className="row">
         <div className="col-4">
-          <ModuleList/>
+          <ModuleListContainer/>
         </div>
         <div className="col-8">
           <LessonTabs/>
