@@ -16,10 +16,10 @@ const CourseEditor = ({match}) => {
 
       <div className="row">
         <div className="col-4">
-          <ModuleListContainer/>
+          <ModuleListContainer {...match}/>
         </div>
         <div className="col-8">
-          <LessonTabs/>
+          <LessonTabs {...match}/>
           <h3>Topic Pills</h3>
           <h3>Widget List</h3>
         </div>

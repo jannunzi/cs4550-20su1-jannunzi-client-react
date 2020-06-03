@@ -3,6 +3,11 @@ const findAllModules = () => {
     .then(response => response.json())
 }
 
+const findModuleForCourse = (courseId) =>
+  fetch(`https://wbdv-generic-server.herokuapp.com/api/jannunzi/courses/${courseId}/modules`)
+    .then(response => response.json())
+
+
 const deleteModule = (moduleId) => {
   return fetch("https://wbdv-generic-server.herokuapp.com/api/jannunzi/modules/" + moduleId, {
     method: 'DELETE'
@@ -20,8 +25,8 @@ const updateModule = (moduleId, newModule) =>
   })
     .then(response => response.json())
 
-const createModule = (module) =>
-  fetch("https://wbdv-generic-server.herokuapp.com/api/jannunzi/modules", {
+const createModule = (courseId, module) =>
+  fetch(`https://wbdv-generic-server.herokuapp.com/api/jannunzi/courses/${courseId}/modules`, {
     method: 'POST',
     body: JSON.stringify(module),
     headers: {
@@ -35,5 +40,6 @@ export default {
   findAllModules,
   deleteModule,
   createModule,
-  updateModule
+  updateModule,
+  findModuleForCourse
 }

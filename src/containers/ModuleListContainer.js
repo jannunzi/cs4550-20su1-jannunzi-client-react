@@ -1,16 +1,28 @@
 import {connect} from "react-redux";
 import ModuleListComponent from "../components/ModuleListComponent";
 import ModuleService from "../services/ModuleService";
+import moduleReducer from "../reducers/moduleReducer";
 
-const stateToPropertyMapper = (state) => {
+const stateToPropertyMapper = (state, ownProps) => {
+  console.log(ownProps)
+  console.log(state)
   return {
-    modules: state.modules,
-    newModuleTitle: state.newModuleTitle
+    modules: state.moduleReducer.modules,
+    newModuleTitle: state.moduleReducer.newModuleTitle,
+    params: ownProps.params
+    // ownProps: ownProps
   }
 }
 
 const dispatchToPropertyMapper = (dispatch) => {
   return {
+    findModuleForCourse: (courseId) => {
+      ModuleService.findModuleForCourse(courseId)
+        .then(modulesForTheCourse => dispatch({
+          type: 'FIND_MODULES_FOR_COURSE',
+          modules: modulesForTheCourse
+        }))
+    },
     findAllModules: () => {
       ModuleService.findAllModules()
         .then(actualModules => dispatch({
@@ -25,14 +37,14 @@ const dispatchToPropertyMapper = (dispatch) => {
           updatedModule: newModuleData
         }))
     },
-    createModule: (newModule) => {
-      ModuleService.createModule(newModule)
+    createModule: (courseId, newModule) => {
+      ModuleService.createModule(courseId, newModule)
         .then(actualNewModule => dispatch({
           type: "ADD_MODULE",
           newModule: actualNewModule
         }))
     },
-    deleteModule: (moduleId) => {
+    deleteModule  : (moduleId) => {
       ModuleService.deleteModule(moduleId)
         .then(status => dispatch({
           type: "DELETE_MODULE",

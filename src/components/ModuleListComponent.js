@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class ModuleListComponent extends React.Component {
   state = {
@@ -6,13 +7,15 @@ class ModuleListComponent extends React.Component {
     editingModule: {}
   }
   componentDidMount() {
-    this.props.findAllModules()
+    // this.props.findAllModules()
+    this.props.findModuleForCourse(this.props.params.courseId)
   }
 
   render() {
     return(
       <div>
         <h1>Modules ({this.props.modules.length})</h1>
+        ({this.props.params.courseId})
         <ul>
           {
             this.props.modules.map(module =>
@@ -47,7 +50,9 @@ class ModuleListComponent extends React.Component {
                     <button onClick={() => this.setState({editingModule: module})}>
                       Edit
                     </button>
-                    {module.title}
+                    <Link to={`/editor/${this.props.params.courseId}/modules/${module._id}`}>
+                      {module.title}
+                    </Link>
                   </span>
                 }
               </li>
@@ -59,7 +64,9 @@ class ModuleListComponent extends React.Component {
             newModuleTitle: event.target.value
           })}
                value={this.state.newModuleTitle}/>
-        <button onClick={() => this.props.createModule({
+        <button onClick={() => this.props.createModule(
+          this.props.params.courseId,
+          {
           title: this.state.newModuleTitle
         })}>
           Add

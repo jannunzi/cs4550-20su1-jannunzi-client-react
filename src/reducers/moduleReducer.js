@@ -16,6 +16,11 @@ const moduleReducer = (state=initialState, event) => {
           module => module._id === event.updatedModule._id ?
             event.updatedModule : module )
       }
+    case "FIND_MODULES_FOR_COURSE":
+      return {
+        ...state,
+        modules: event.modules
+      }
     case "FIND_ALL_MODULES":
       console.log(event.modules)
       return {
