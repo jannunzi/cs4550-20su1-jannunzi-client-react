@@ -11,13 +11,14 @@ import HelloContainer from "./Hello";
 import CounterComponent from "./components/CounterComponent";
 import moduleReducer from './reducers/moduleReducer'
 import lessonReducer from "./reducers/lessonReducer";
+import widgetReducer from "./reducers/widgetReducer";
 import ModuleListComponent from "./components/ModuleListComponent";
 import ModuleListContainer from "./containers/ModuleListContainer";
 import {ewq, rew, tre} from "./containers/ModuleListContainer";
 
 // const store = createStore(counterReducer)
 const reducers = combineReducers({
-  moduleReducer, lessonReducer
+  moduleReducer, lessonReducer, widgetReducer
 })
 const store = createStore(reducers)
 
