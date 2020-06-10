@@ -6,7 +6,7 @@ import ModuleListContainer from "../containers/ModuleListContainer";
 import WidgetListComponent from "./WidgetListComponent";
 
 // stateless component
-const CourseEditor = ({match}) => {
+const CourseEditor = ({match, history}) => {
   return(
     <div>
       {match.params.courseId}
@@ -17,7 +17,7 @@ const CourseEditor = ({match}) => {
 
       <div className="row">
         <div className="col-4">
-          <ModuleListContainer {...match}/>
+          <ModuleListContainer match={match} history={history}/>
         </div>
         <div className="col-8">
           <LessonTabs {...match}/>

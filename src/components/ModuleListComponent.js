@@ -8,14 +8,15 @@ class ModuleListComponent extends React.Component {
   }
   componentDidMount() {
     // this.props.findAllModules()
-    this.props.findModuleForCourse(this.props.params.courseId)
+    console.log(this.props)
+    this.props.findModuleForCourse(this.props.match.params.courseId)
   }
 
   render() {
     return(
       <div>
         <h1>Modules ({this.props.modules.length})</h1>
-        ({this.props.params.courseId})
+        ({this.props.match.params.courseId})
         <ul>
           {
             this.props.modules.map(module =>
@@ -50,7 +51,7 @@ class ModuleListComponent extends React.Component {
                     <button onClick={() => this.setState({editingModule: module})}>
                       Edit
                     </button>
-                    <Link to={`/editor/${this.props.params.courseId}/modules/${module._id}`}>
+                    <Link to={`/editor/${this.props.match.params.courseId}/modules/${module._id}`}>
                       {module.title}
                     </Link>
                   </span>
