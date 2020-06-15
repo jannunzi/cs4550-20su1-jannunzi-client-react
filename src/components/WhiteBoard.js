@@ -3,7 +3,9 @@ import CourseListContainer from "../containers/CourseListContainer";
 import CourseEditor from "./CourseEditor";
 import {BrowserRouter, Route} from "react-router-dom";
 import HomeComponent from "./HomeComponent";
-import LoginComponent from "./LogicComponent";
+import LoginComponent from "./LoginComponent";
+import Register from "./Register";
+import ProfileComponent from "./ProfileComponent";
 
 class WhiteBoard extends React.Component {
   render() {
@@ -12,7 +14,9 @@ class WhiteBoard extends React.Component {
         <div>
           <h1>WhiteBoard !!!!</h1>
 
+          <Route path="/register" exact={true} component={Register}/>
           <Route path="/login" exact={true} component={LoginComponent}/>
+          <Route path="/profile" exact={true} component={ProfileComponent}/>
 
           {/*TODO: port over registraion, profile components*/}
 
