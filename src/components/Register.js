@@ -27,11 +27,11 @@ export default class Register extends React.Component {
         <input
           onChange={(e) => this.setState({password: e.target.value})}
           className="form-control"/>
-          <button
-            onClick={this.register}
-            className="btn btn-primary">
-            Register
-          </button>
+        <button
+          onClick={this.register}
+          className="btn btn-primary">
+          Register
+        </button>
         <Link to="/login">Sign in</Link>
       </div>
     )

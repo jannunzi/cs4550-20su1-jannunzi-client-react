@@ -8,6 +8,11 @@ const initialState = {
 
 const widgetReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "UPDATE_WIDGET":
+      return {
+        ...state,
+        widgets: state.widgets.map(widget => widget.id === action.wid ? action.widget : widget)
+      }
     case "CREATE_WIDGET":
       return {
         ...state,

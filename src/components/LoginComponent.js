@@ -6,15 +6,20 @@ export default class LoginComponent extends React.Component {
     username: '',
     password: ''
   }
-  register = () => {
+  login = () => {
     fetch("http://localhost:8080/api/login", {
-      body: JSON.stringify({username: this.state.username, password: this.state.password}),
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password}),
       headers: {
         'content-type': 'application/json'
       },
       method: 'POST',
       credentials: "include"
     }).then(response => response.json())
+      .catch(e => {
+        this.props.history.push("/login")
+      })
       .then(currentUser => {
         if(currentUser)
           this.props.history.push("/profile")
@@ -32,7 +37,7 @@ export default class LoginComponent extends React.Component {
           onChange={(e) => this.setState({password: e.target.value})}
           className="form-control"/>
         <button
-          onClick={this.register}
+          onClick={this.login}
           className="btn btn-primary">
           Login
         </button>

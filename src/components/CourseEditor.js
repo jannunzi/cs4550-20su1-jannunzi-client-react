@@ -20,9 +20,9 @@ const CourseEditor = ({match, history}) => {
           <ModuleListContainer match={match} history={history}/>
         </div>
         <div className="col-8">
-          <LessonTabs {...match}/>
           <h3>Topic Pills</h3>
           <WidgetListComponent/>
+          <LessonTabs {...match}/>
         </div>
       </div>
     </div>

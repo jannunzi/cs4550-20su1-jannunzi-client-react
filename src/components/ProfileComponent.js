@@ -28,6 +28,7 @@ export default class ProfileComponent extends React.Component {
 
   update = () => {
     fetch("http://localhost:8080/api/profile", {
+      body: JSON.stringify({username: this.state.username, password: this.state.password}),
       headers: {
         'content-type': 'application/json'
       },
