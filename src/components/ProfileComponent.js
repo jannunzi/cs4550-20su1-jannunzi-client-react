@@ -2,8 +2,11 @@ import React from "react";
 
 export default class ProfileComponent extends React.Component {
   state = {
-    username: '',
-    password: ''
+    user: {
+      username: '',
+      password: '',
+      sections: []
+    }
   }
 
   componentDidMount() {
@@ -21,14 +24,14 @@ export default class ProfileComponent extends React.Component {
       .then(user => {
         if(user)
           this.setState({
-            username: user.username, password: user.password
+            user: user
           })
       })
   }
 
   update = () => {
     fetch("http://localhost:8080/api/profile", {
-      body: JSON.stringify({username: this.state.username, password: this.state.password}),
+      body: JSON.stringify(this.state.user),
       headers: {
         'content-type': 'application/json'
       },
@@ -54,12 +57,16 @@ export default class ProfileComponent extends React.Component {
       <div>
         <h1>Profile</h1>
         <input
-          value={this.state.username}
-          onChange={(e) => this.setState({username: e.target.value})}
+          value={this.state.user.username}
+          onChange={(e) => this.setState({
+            user: {
+              username: e.target.value
+            }})}
           className="form-control"/>
         <input
-          value={this.state.password}
-          onChange={(e) => this.setState({password: e.target.value})}
+          value={this.state.user.password}
+          onChange={(e) => this.setState({
+            user: {password: e.target.value}})}
           className="form-control"/>
         <button
           onClick={this.update}
@@ -71,6 +78,20 @@ export default class ProfileComponent extends React.Component {
           onClick={this.logout}>
           Sign out
         </button>
+        {
+          this.state.user && this.state.user.sections.length > 0 &&
+            <div>
+              <h3>Sections</h3>
+              <ul className="list-group">
+                {this.state.user.sections.map(section =>
+                <li key={section.id}
+                    className="list-group-item">
+                  {section.title}
+                </li>
+                )}
+              </ul>
+            </div>
+        }
       </div>
     )
   }
